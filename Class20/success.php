@@ -1,8 +1,17 @@
 <?php
-$username = $_POST['username'] ?? '';
-$email = $_POST['email'] ?? '';
-$age = $_POST['age'] ?? '';
-$password = $_POST['password'] ?? '';
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: validaion.php");
+    exit;
+}
+
+$user = $_SESSION['user'];
+
+$username = $user['username'];
+$email = $user['email'];
+$age = $user['age'];
+$password = $user['password'];
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +49,6 @@ $password = $_POST['password'] ?? '';
     </style>
 </head>
 <body>
-
     <div class="card">
         <h2>Registration Completed Successfully</h2>
         <p><strong>Username:</strong> <?= htmlspecialchars($username) ?></p>
@@ -48,6 +56,5 @@ $password = $_POST['password'] ?? '';
         <p><strong>Age:</strong> <?= htmlspecialchars($age) ?></p>
         <p><strong>Password:</strong> <?= str_repeat('*', strlen($password)) ?></p>
     </div>
-
 </body>
 </html>
